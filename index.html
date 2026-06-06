@@ -58,7 +58,7 @@
   --serif:'Playfair Display',Georgia,'Times New Roman',serif;
   --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:76px}
 body{
   font-family:var(--sans); background:var(--bg); color:var(--text);
   line-height:1.65; font-weight:400; overflow-x:hidden;
@@ -128,7 +128,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.12;letter-spacin
 .lang button[aria-pressed="true"]{background:var(--gold-light);color:var(--ink)}
 .lang button:hover:not([aria-pressed="true"]){color:#fff}
 .nav-cta{padding:9px 20px;font-size:.85rem}
-.burger{display:none;width:42px;height:42px;border-radius:9px;color:#fff;
+.burger{display:none;width:44px;height:44px;border-radius:9px;color:#fff;
   align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.14)}
 .burger svg{width:22px;height:22px}
 
@@ -341,16 +341,30 @@ footer{background:var(--ink);color:rgba(255,255,255,.7);padding:64px 0 30px}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:600px){
-  .section{padding:70px 0}
+  .section{padding:64px 0}
+  .wrap{padding:0 18px}
+  .nav-in{padding:0 16px}
   .nav-cta{display:none}
+  .hero{padding:52px 0 64px}
+  .hero-cta{flex-direction:column;align-items:stretch}
+  .hero-cta .btn{width:100%}
+  .hero-stores,.dl-stores{flex-direction:column;align-items:center}
+  .store{width:100%;max-width:300px;min-width:0}
   .feat-grid{grid-template-columns:1fr}
   .privacy-in{flex-direction:column;text-align:center;gap:18px}
   .pro-card{padding:32px 24px}
   .event{flex-direction:row;gap:16px;padding:18px}
   .event-date{width:62px;padding-right:16px}
-  .foot-grid{grid-template-columns:1fr}
+  .contact-mail{font-size:1.25rem;overflow-wrap:anywhere}
+  .foot-grid{grid-template-columns:1fr;gap:30px}
   .foot-bottom{justify-content:flex-start}
   .notify-row{flex-direction:column}
+}
+@media(max-width:400px){
+  .brand{font-size:1.18rem}
+  .nav-right{gap:10px}
+  .lang button{padding:6px 8px;font-size:.68rem}
+  .h-display{font-size:2.05rem}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;scroll-behavior:auto!important}
