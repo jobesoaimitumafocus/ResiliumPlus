@@ -195,7 +195,29 @@ nav{position:sticky; top:0; z-index:50; -webkit-backdrop-filter:saturate(160%) b
 .plan li{display:flex; gap:10px; font-size:14.5px; padding:7px 0; color:var(--text)}
 .plan li svg{width:18px; height:18px; color:var(--gold); flex:0 0 auto; margin-top:2px}
 .plan .ribbon{position:absolute; top:18px; right:18px; font-size:10.5px; font-weight:700; letter-spacing:.5px; background:var(--gold-2); color:#1a1407; padding:5px 12px; border-radius:20px}
+.bill{display:inline-flex; gap:3px; background:var(--bg-2); border:1px solid var(--border); border-radius:30px; padding:3px; margin:6px 0 16px}
+.bill button{border:none; background:none; cursor:pointer; font-size:12.5px; font-weight:700; color:var(--muted); padding:7px 16px; border-radius:24px; transition:.2s}
+.bill button.on{background:var(--ink); color:var(--on-dark)}
+[data-theme="dark"] .bill button.on, :root:not([data-theme="light"]) .bill button.on{background:var(--gold-2); color:#1a1407}
 @media(max-width:620px){ .price{grid-template-columns:1fr} }
+
+/* DOWNLOAD / STORES */
+.download{text-align:center}
+.stores{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:40px}
+.store{display:inline-flex; align-items:center; gap:13px; padding:14px 24px; border-radius:16px;
+  border:1px solid var(--border); background:var(--surface); min-width:215px; position:relative; text-align:left;
+  box-shadow:0 10px 30px -18px var(--shadow); transition:transform .2s ease, box-shadow .2s, border-color .2s}
+.store[aria-disabled="true"]{opacity:.7; cursor:default}
+.store:not([aria-disabled="true"]):hover{transform:translateY(-3px); box-shadow:0 20px 42px -22px var(--shadow-lg); border-color:var(--gold-2)}
+.store .slogo{flex:0 0 auto; color:var(--text); display:grid; place-items:center}
+.store .slogo svg{width:28px; height:28px; display:block}
+.store .stxt{display:flex; flex-direction:column; line-height:1.18}
+.store .s-sm{font-size:11px; color:var(--muted); letter-spacing:.3px}
+.store .s-bg{font-size:19px; font-weight:700; font-family:"Playfair Display",Georgia,serif; color:var(--text)}
+.store .soon{position:absolute; top:-10px; right:14px; font-size:9.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase;
+  background:var(--gold-2); color:#1a1407; padding:3px 10px; border-radius:20px; box-shadow:0 4px 10px -4px var(--shadow-lg)}
+.dl-note{margin-top:26px; color:var(--muted); font-size:14px}
+@media(max-width:480px){ .stores{flex-direction:column; align-items:center} .store{width:100%; max-width:300px} }
 
 /* FOOTER */
 footer{border-top:1px solid var(--border); padding:56px 0 40px; background:var(--bg-2)}
@@ -229,6 +251,7 @@ footer{border-top:1px solid var(--border); padding:56px 0 40px; background:var(-
         <a href="#pilastri" data-i18n="nav.pillars">I pilastri</a>
         <a href="#privacy" data-i18n="nav.privacy">Privacy</a>
         <a href="#prezzi" data-i18n="nav.prices">Prezzi</a>
+        <a href="#scarica" data-i18n="nav.download">Scarica</a>
       </div>
       <div class="lang" role="group" aria-label="Lingua">
         <button data-lang="it">IT</button><button data-lang="en">EN</button><button data-lang="es">ES</button>
@@ -398,10 +421,14 @@ footer{border-top:1px solid var(--border); padding:56px 0 40px; background:var(-
         </ul>
       </div>
       <div class="plan pro reveal">
-        <span class="ribbon" data-i18n="pro.ribbon">7 GIORNI GRATIS</span>
+        <span class="ribbon" id="proRibbon" data-i18n="pro.ribbon">7 GIORNI GRATIS</span>
         <div class="pname">Resilium+ Pro</div>
-        <div class="pprice">€4,99<small data-i18n="pro.per"> /mese</small></div>
-        <div class="pnote" data-i18n="pro.note">oppure €39,99/anno · prova gratuita di 7 giorni</div>
+        <div class="bill" role="group" aria-label="Periodo di fatturazione">
+          <button type="button" data-bill="month" data-i18n="bill.month">Mensile</button>
+          <button type="button" data-bill="year" data-i18n="bill.year">Annuale</button>
+        </div>
+        <div class="pprice"><span id="proPrice">€39,99</span><small id="proPer"> /anno</small></div>
+        <div class="pnote" id="proNote">≈ 3,33€/mese · risparmi il 33%</div>
         <ul>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="pro.l1">Statistiche avanzate (andamenti a 30 giorni)</span></li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> <span data-i18n="pro.l2">La mappa del tuo 20% (30 giorni)</span></li>
@@ -414,6 +441,30 @@ footer{border-top:1px solid var(--border); padding:56px 0 40px; background:var(-
   </div>
 </section>
 
+<!-- DOWNLOAD -->
+<section id="scarica" class="download">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow center" data-i18n="dl.eyebrow">Disponibile a breve</div>
+      <h2 class="title" data-i18n="dl.title">Resilium+ arriva sul tuo telefono.</h2>
+      <p class="lead center" data-i18n="dl.lead">Stiamo mettendo a punto gli ultimi dettagli. Presto potrai scaricarla e iniziare — una cosa alla volta.</p>
+    </div>
+    <div class="stores reveal">
+      <span class="store" role="link" aria-disabled="true" aria-label="App Store — presto disponibile">
+        <span class="soon" data-i18n="dl.soon1">Presto</span>
+        <span class="slogo"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.36 1.43c.05 1.02-.34 2.02-1 2.76-.69.78-1.83 1.39-2.93 1.3-.08-1 .39-2.04 1.02-2.73.71-.78 1.94-1.36 2.91-1.33zM20.5 17.13c-.55 1.27-.82 1.83-1.53 2.95-.99 1.56-2.39 3.51-4.11 3.52-1.53.02-1.93-1-4.01-.99-2.08.01-2.52 1.01-4.06.99-1.73-.02-3.05-1.78-4.04-3.34-2.77-4.34-3.06-9.43-1.35-12.14 1-1.58 2.58-2.5 4.06-2.5 1.51 0 2.46 1 3.7 1 1.21 0 1.95-1 3.7-1 1.32 0 2.72.72 3.72 1.96-3.27 1.79-2.74 6.46.59 7.84z"/></svg></span>
+        <span class="stxt"><span class="s-sm" data-i18n="dl.on1">Presto su</span><span class="s-bg">App Store</span></span>
+      </span>
+      <span class="store" role="link" aria-disabled="true" aria-label="Google Play — in arrivo">
+        <span class="soon" data-i18n="dl.soon2">In arrivo</span>
+        <span class="slogo"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.018 13.298l-3.919 2.218-3.515-3.493 3.543-3.521 3.891 2.202a1.49 1.49 0 0 1 0 2.594zM1.337.924a1.486 1.486 0 0 0-.112.568v21.017c0 .217.045.419.124.6l11.155-11.087L1.337.924zm12.207 10.065l3.258-3.238L3.45.195a1.466 1.466 0 0 0-.946-.179l11.04 10.973zm0 2.067l-11 10.933c.298.036.612-.016.906-.183l13.324-7.54-3.23-3.21z"/></svg></span>
+        <span class="stxt"><span class="s-sm" data-i18n="dl.on2">In arrivo su</span><span class="s-bg">Google Play</span></span>
+      </span>
+    </div>
+    <p class="dl-note" data-i18n="dl.note">iOS prima, Android in arrivo. Scrivi a support@resiliumplus.com per essere avvisato al lancio.</p>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="foot-grid">
@@ -422,7 +473,7 @@ footer{border-top:1px solid var(--border); padding:56px 0 40px; background:var(-
         <p data-i18n="foot.tagline">L'app che trova il tuo 20% e ti accompagna una cosa alla volta. Corpo, Mente, Anima, Crescita.</p>
       </div>
       <div class="foot-links">
-        <div class="foot-col"><h4 data-i18n="foot.product">Prodotto</h4><a href="#metodo" data-i18n="nav.method">Il metodo</a><a href="#pilastri" data-i18n="nav.pillars">I pilastri</a><a href="#prezzi" data-i18n="nav.prices">Prezzi</a></div>
+        <div class="foot-col"><h4 data-i18n="foot.product">Prodotto</h4><a href="#metodo" data-i18n="nav.method">Il metodo</a><a href="#pilastri" data-i18n="nav.pillars">I pilastri</a><a href="#prezzi" data-i18n="nav.prices">Prezzi</a><a href="#scarica" data-i18n="nav.download">Scarica</a></div>
         <div class="foot-col"><h4 data-i18n="foot.legal">Legale</h4><a href="privacy.html" data-i18n="foot.privacy">Privacy Policy</a><a href="terms.html" data-i18n="foot.terms">Termini d'uso</a></div>
         <div class="foot-col"><h4 data-i18n="foot.contact">Contatti</h4><a href="mailto:support@resiliumplus.com">support@resiliumplus.com</a></div>
       </div>
@@ -470,7 +521,9 @@ var I18N={
   "price.eyebrow":"Prezzi","price.title":"Inizia gratis. Passa a Pro quando vuoi.","price.lead":"Niente piano \"a vita\": o gratis, o abbonamento. Semplice e onesto.",
   "free.name":"Gratis","free.note":"L'esperienza completa, per sempre.","free.l1":"Il motore del 20% e la modalità Focus","free.l2":"Abitudini, diario, acqua, sonno, igiene","free.l3":"Revisione settimanale del tuo 20%","free.l4":"4 pilastri, respiro e saggezza",
   "pro.ribbon":"7 GIORNI GRATIS","pro.per":" /mese","pro.note":"oppure €39,99/anno · prova gratuita di 7 giorni","pro.l1":"Statistiche avanzate (andamenti a 30 giorni)","pro.l2":"La mappa del tuo 20% (30 giorni)","pro.l3":"Musica focus illimitata","pro.l4":"Sostieni lo sviluppo del progetto",
+  "bill.month":"Mensile","bill.year":"Annuale","pro.priceM":"€4,99","pro.priceY":"€39,99","pro.perM":" /mese","pro.perY":" /anno","pro.noteM":"oppure €39,99/anno · 7 giorni di prova gratis","pro.noteY":"≈ 3,33€/mese · risparmi il 33%",
   "price.foot":"Resilium+ arriva presto su App Store. Disponibile in 🇮🇹 Italiano · 🇬🇧 English · 🇪🇸 Español.",
+  "nav.download":"Scarica","dl.eyebrow":"Disponibile a breve","dl.title":"Resilium+ arriva sul tuo telefono.","dl.lead":"Stiamo mettendo a punto gli ultimi dettagli. Presto potrai scaricarla e iniziare — una cosa alla volta.","dl.soon1":"Presto","dl.soon2":"In arrivo","dl.on1":"Presto su","dl.on2":"In arrivo su","dl.note":"iOS prima, Android in arrivo. Scrivi a support@resiliumplus.com per essere avvisato al lancio.",
   "foot.tagline":"L'app che trova il tuo 20% e ti accompagna una cosa alla volta. Corpo, Mente, Anima, Crescita.","foot.product":"Prodotto","foot.legal":"Legale","foot.contact":"Contatti","foot.privacy":"Privacy Policy","foot.terms":"Termini d'uso","foot.made":"Fatto con cura.","foot.motto":"Disciplina oggi, libertà domani." },
 
  en:{ "nav.method":"The method","nav.pillars":"The pillars","nav.privacy":"Privacy","nav.prices":"Pricing",
@@ -503,7 +556,9 @@ var I18N={
   "price.eyebrow":"Pricing","price.title":"Start free. Go Pro whenever you want.","price.lead":"No \"lifetime\" plan: either free, or a subscription. Simple and honest.",
   "free.name":"Free","free.note":"The full experience, forever.","free.l1":"The 20% engine and Focus mode","free.l2":"Habits, journal, water, sleep, hygiene","free.l3":"Weekly review of your 20%","free.l4":"4 pillars, breath and wisdom",
   "pro.ribbon":"7 DAYS FREE","pro.per":" /month","pro.note":"or €39.99/year · 7-day free trial","pro.l1":"Advanced statistics (30-day trends)","pro.l2":"Your 20% map (30 days)","pro.l3":"Unlimited focus music","pro.l4":"Support the project's development",
+  "bill.month":"Monthly","bill.year":"Yearly","pro.priceM":"€4.99","pro.priceY":"€39.99","pro.perM":" /month","pro.perY":" /year","pro.noteM":"or €39.99/year · 7-day free trial","pro.noteY":"≈ €3.33/month · save 33%",
   "price.foot":"Resilium+ is coming soon to the App Store. Available in 🇮🇹 Italiano · 🇬🇧 English · 🇪🇸 Español.",
+  "nav.download":"Download","dl.eyebrow":"Coming soon","dl.title":"Resilium+ is coming to your phone.","dl.lead":"We're putting the final touches in place. Soon you'll be able to download it and begin — one thing at a time.","dl.soon1":"Soon","dl.soon2":"Coming","dl.on1":"Soon on","dl.on2":"Coming to","dl.note":"iOS first, Android coming next. Email support@resiliumplus.com to be notified at launch.",
   "foot.tagline":"The app that finds your 20% and walks you through it one thing at a time. Body, Mind, Soul, Growth.","foot.product":"Product","foot.legal":"Legal","foot.contact":"Contact","foot.privacy":"Privacy Policy","foot.terms":"Terms of Use","foot.made":"Made with care.","foot.motto":"Discipline today, freedom tomorrow." },
 
  es:{ "nav.method":"El método","nav.pillars":"Los pilares","nav.privacy":"Privacidad","nav.prices":"Precios",
@@ -536,12 +591,26 @@ var I18N={
   "price.eyebrow":"Precios","price.title":"Empieza gratis. Pasa a Pro cuando quieras.","price.lead":"Sin plan \"de por vida\": o gratis, o suscripción. Simple y honesto.",
   "free.name":"Gratis","free.note":"La experiencia completa, para siempre.","free.l1":"El motor del 20% y el modo Foco","free.l2":"Hábitos, diario, agua, sueño, higiene","free.l3":"Revisión semanal de tu 20%","free.l4":"4 pilares, respiro y sabiduría",
   "pro.ribbon":"7 DÍAS GRATIS","pro.per":" /mes","pro.note":"o €39,99/año · prueba gratis de 7 días","pro.l1":"Estadísticas avanzadas (tendencias de 30 días)","pro.l2":"El mapa de tu 20% (30 días)","pro.l3":"Música de enfoque ilimitada","pro.l4":"Apoya el desarrollo del proyecto",
+  "bill.month":"Mensual","bill.year":"Anual","pro.priceM":"€4,99","pro.priceY":"€39,99","pro.perM":" /mes","pro.perY":" /año","pro.noteM":"o €39,99/año · prueba gratis de 7 días","pro.noteY":"≈ 3,33€/mes · ahorras un 33%",
   "price.foot":"Resilium+ llega pronto a la App Store. Disponible en 🇮🇹 Italiano · 🇬🇧 English · 🇪🇸 Español.",
+  "nav.download":"Descargar","dl.eyebrow":"Disponible muy pronto","dl.title":"Resilium+ llega a tu teléfono.","dl.lead":"Estamos puliendo los últimos detalles. Pronto podrás descargarla y empezar — una cosa a la vez.","dl.soon1":"Pronto","dl.soon2":"Muy pronto","dl.on1":"Pronto en","dl.on2":"Llega a","dl.note":"Primero iOS, Android llega después. Escribe a support@resiliumplus.com para avisarte en el lanzamiento.",
   "foot.tagline":"La app que encuentra tu 20% y te acompaña una cosa a la vez. Cuerpo, Mente, Alma, Crecimiento.","foot.product":"Producto","foot.legal":"Legal","foot.contact":"Contacto","foot.privacy":"Política de privacidad","foot.terms":"Términos de uso","foot.made":"Hecho con cuidado.","foot.motto":"Disciplina hoy, libertad mañana." }
 };
 
 (function(){
-  var LK='resilium-lang', TK='resilium-theme', root=document.documentElement;
+  var LK='resilium-lang', TK='resilium-theme', BK='resilium-bill', root=document.documentElement;
+  var curLang='it', curBill=localStorage.getItem(BK)||'year';
+  /* ---- PREZZI: prezzo Pro in base a lingua + periodo (mensile/annuale) ---- */
+  function applyPro(){
+    var d=I18N[curLang]||I18N.it, y=(curBill==='year');
+    var price=document.getElementById('proPrice'), per=document.getElementById('proPer'),
+        note=document.getElementById('proNote'), rib=document.getElementById('proRibbon');
+    if(price) price.textContent=d[y?'pro.priceY':'pro.priceM'];
+    if(per) per.textContent=d[y?'pro.perY':'pro.perM'];
+    if(note) note.textContent=d[y?'pro.noteY':'pro.noteM'];
+    if(rib){ rib.textContent=d['pro.ribbon']; rib.style.display=y?'':'none'; }
+    document.querySelectorAll('.bill button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-bill')===curBill); });
+  }
   /* ---- LINGUA ---- */
   function detect(){ var s=localStorage.getItem(LK); if(s) return s; var n=(navigator.language||'it').slice(0,2); return I18N[n]?n:'it'; }
   function applyLang(l){
@@ -550,11 +619,17 @@ var I18N={
     document.querySelectorAll('[data-i18n-html]').forEach(function(el){ var k=el.getAttribute('data-i18n-html'); if(d[k]!=null) el.innerHTML=d[k]; });
     root.setAttribute('lang', l);
     document.querySelectorAll('.lang button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-lang')===l); });
+    curLang=l; applyPro();
   }
   document.querySelectorAll('.lang button').forEach(function(b){
     b.addEventListener('click', function(){ var l=b.getAttribute('data-lang'); localStorage.setItem(LK,l); applyLang(l); });
   });
   applyLang(detect());
+
+  /* ---- PREZZI: click interruttore Mensile/Annuale ---- */
+  document.querySelectorAll('.bill button').forEach(function(b){
+    b.addEventListener('click', function(){ curBill=b.getAttribute('data-bill'); localStorage.setItem(BK,curBill); applyPro(); });
+  });
 
   /* ---- TEMA ---- */
   var btn=document.getElementById('themeBtn');
