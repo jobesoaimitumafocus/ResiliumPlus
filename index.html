@@ -13,7 +13,6 @@
        Quando questo file diventerà il sito ufficiale (index.html
        nella root), ELIMINA la riga <meta name="robots" ...>.
      ============================================================ -->
-<meta name="robots" content="noindex, nofollow">
 
 <title>Resilium+ — Ogni giorno, una scelta che conta.</title>
 <meta name="description" content="Scrivi tutto ciò che hai in testa. Resilium+ trova l'azione che conta davvero oggi e ti accompagna a completarla — una cosa alla volta. Privato, on-device, senza pubblicità.">
@@ -189,6 +188,15 @@ h3{font-size:1.34rem;line-height:1.25;font-weight:600}
 .nav-cta:hover{transform:translateY(-1px);box-shadow:0 10px 24px var(--gold-soft)}
 @media(max-width:920px){.nav-links{display:none}}
 @media(max-width:560px){.nav-cta{display:none}.nav-in{gap:12px}}
+@media(max-width:390px){
+  .nav-in{gap:8px}
+  .brand{font-size:18.5px}
+  .lang{padding:2px}
+  .lang button{padding:5px 7px;font-size:10.5px}
+  .icobtn{width:34px;height:34px}
+  .icobtn svg{width:15px;height:15px}
+  .nav-right{gap:7px}
+}
 
 /* ---------- B · Hero ---------- */
 .hero{position:relative;overflow:clip;padding:clamp(56px,8vw,104px) 0 clamp(72px,9vw,120px)}
@@ -298,15 +306,19 @@ h3{font-size:1.34rem;line-height:1.25;font-weight:600}
 .pareto .num{font-family:"Playfair Display",serif;font-size:clamp(3.4rem,8vw,5.6rem);
   font-weight:600;line-height:1;color:var(--gold);letter-spacing:-.02em}
 .pareto p{margin-top:12px;color:var(--muted);font-size:15.5px;max-width:30ch}
+.pareto .col{text-align:left;justify-self:start}
 .pareto .col:last-child{text-align:right;justify-self:end}
 .pareto .col:last-child p{margin-left:auto}
 .honest{margin:clamp(40px,6vw,60px) auto 0;max-width:52ch;text-align:center;
   font-size:14px;color:var(--muted);font-style:italic}
 @media(max-width:640px){
-  .pareto{grid-template-columns:1fr;gap:36px}
+  .section{padding:72px 0}
+  .section.tight{padding-top:54px}
+  .hero{padding:44px 0 64px}
+  .pareto{grid-template-columns:1fr;gap:46px}
   .pareto .thread{display:none}
-  .pareto .col:last-child{text-align:left;justify-self:start}
-  .pareto .col:last-child p{margin-left:0}
+  .pareto .col,.pareto .col:last-child{text-align:center;justify-self:center}
+  .pareto p{margin-left:auto;margin-right:auto}
 }
 
 /* ---------- D · Il metodo (3 passi + UI reale) ---------- */
