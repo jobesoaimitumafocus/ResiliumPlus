@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://resiliumplus.com/sitemap.xml
+Disallow: /
